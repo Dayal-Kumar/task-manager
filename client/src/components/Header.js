@@ -1,13 +1,13 @@
 import React, {useContext} from 'react';
 import {Navbar, Container } from "react-bootstrap";
-import axios from "axios";
 import {myContext} from "../Context";
+import {axiosInstance} from "../config";
 
 
 const Header = () => {
     const userObj = useContext(myContext);
     const logout = () => {
-        axios.get('/auth/logout', {withCredentials: true}).then(res => {
+        axiosInstance.get('/auth/logout', {withCredentials: true}).then(res => {
             if(res.data === 'success') {
                 // setUserObj();
                 window.location.href = '/';
