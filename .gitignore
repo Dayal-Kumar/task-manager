@@ -128,4 +128,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-client/task-manager/build/
+client/build/
