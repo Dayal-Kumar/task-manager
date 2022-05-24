@@ -30,8 +30,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use('auth', authRouter);
-app.use('task', taskRouter);
+app.use('/auth', authRouter);
+app.use('/task', taskRouter);
 
 app.get('/get-user', (req, res) => {
     res.send(req.user);
