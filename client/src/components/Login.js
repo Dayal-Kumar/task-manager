@@ -6,7 +6,7 @@ import {axiosInstance} from "../config";
 const Login = () => {
 
     const GoogleLogin = () => {
-        window.open('/auth/google', '_self');
+        window.open('/api/auth/google', '_self');
     }
 
     return <>
