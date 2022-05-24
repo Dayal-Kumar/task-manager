@@ -4,6 +4,7 @@ import Body from './components/Body';
 import Footer from "./components/Footer";
 import {axiosInstance} from "./config";
 import {useEffect} from "react";
+import React from "react";
 
 
 const App = () => {
