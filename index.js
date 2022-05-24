@@ -34,9 +34,9 @@ app.use(passport.session());
 app.use('/auth', authRouter);
 app.use('/task', taskRouter);
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 app.get('/get-user', (req, res) => {
     res.send(req.user);
