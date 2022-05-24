@@ -10,9 +10,6 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
 import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {useContext} from "react";
-import {myContext}   from "../Context";
-import axios from "axios";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {axiosInstance} from "../config";
 
@@ -28,7 +25,6 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Task(props) {
-    const userContext = useContext(myContext);
     const [task, setTask] = React.useState(props.value);
     const [expanded, setExpanded] = React.useState(false);
 
@@ -77,7 +73,7 @@ export default function Task(props) {
                         onChange={handleChange}
                         autoWidth
                     >
-                        {userContext.status.map(option =>
+                        {props.user.status.map(option =>
                             <MenuItem value={option}>{option}</MenuItem>
                         )}
                     </Select>

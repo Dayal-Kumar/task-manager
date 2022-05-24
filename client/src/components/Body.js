@@ -1,15 +1,14 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Dashboard from "./Dashboard";
 import TaskView from "./TaskView";
-import {myContext} from "../Context";
 import Login from "./Login";
 
-const Body = () => {
-    const userObj = useContext(myContext);
-    if(!userObj) return <Login/>;
+const Body = (props) => {
+
+    if(!props.user) return <Login/>;
     return <div>
         <Dashboard/>
-        <TaskView/>
+        <TaskView user={props.user} userReloader={()=> props.userReloader()}/>
     </div>
 }
 

@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import AddEditTask from "./AddEditTask";
 import Task from "./Task";
-import {myContext} from "../Context";
 import {Grid} from "@mui/material";
 import {axiosInstance} from "../config";
 
-const TaskView = () => {
-    const userObj = React.useContext(myContext);
+const TaskView = (props) => {
     const [type, setType] = useState({type: 'add', task: {}});
     const [tasks, setTasks] = useState([]);
 
@@ -18,25 +16,29 @@ const TaskView = () => {
         setTasks(value);
     }
 
-    const reloader = ()=> {
+    const taskReloader = ()=> {
         axiosInstance.get('/task', {withCredentials: true}).then(res => {
             console.log(res.data);
             setTasks(res.data);
         });
-    }
+    };
+
+
 
     useEffect(()=> {
-        reloader();
-    }, [userObj]);
+        taskReloader();
+    }, [props.user]);
     return <>
         <AddEditTask
             type={type.type}
             task={type.task}
+            user={props.user}
+            userReloader={()=> props.userReloader()}
         />
         <div>
             <Grid container spacing={2} padding={5} >
         {
-            tasks.map(task => (<Grid item xs={4}> <Task value={task} key={task._id} stateChanger={handler} deleteHandler={deleteHandler} reloader={reloader}/></Grid>))
+            tasks.map(task => (<Grid item xs={4}> <Task value={task} key={task._id} stateChanger={handler} deleteHandler={deleteHandler} reloader={taskReloader} user={props.user}/></Grid>))
         }
             </Grid>
         </div>

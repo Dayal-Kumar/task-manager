@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
             User.findByIdAndUpdate(req.user.id, {
                 $push: {'tasks': newTask.id},
                 $addToSet: {'people': newTask.personAssigned, 'status': newTask.status}
-            }).then(() => console.log('User updated'));
+            }).then(() => res.send('Successfully added'));
         })
     });
 });
@@ -32,7 +32,11 @@ router.post('/', (req, res) => {
 router.post('/update', (req, res)=>{
     // if(req.user._id !== req.body.user) return;
     if(!req.isAuthenticated()) return;
-    Task.findByIdAndUpdate(req.body._id, {$set: req.body}, {new: true}).exec();
+    Task.findByIdAndUpdate(req.body._id, {$set: req.body}, {new: true}).exec(()=>{
+        User.findByIdAndUpdate(req.user.id, {
+            $addToSet: {'people': req.body.personAssigned, 'status': req.body.status}
+        }).then(() => res.send('Successfully updated'));
+    });
 });
 
 router.post('/delete', (req, res)=>{

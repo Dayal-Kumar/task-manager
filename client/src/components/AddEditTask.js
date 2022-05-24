@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
-import {myContext} from "../Context";
 import ReactHTMLDatalist from 'react-datalist-input';
 import 'react-datalist-input/dist/styles.css';
 import {axiosInstance} from "../config";
 
 
 const AddEditTask = (props) => {
-    const userContext = React.useContext(myContext);
     const [newTask, setNewTask] = React.useState(props.task);
+
 
     useEffect(() => {
         if(props.type === 'edit')
@@ -19,9 +18,14 @@ const AddEditTask = (props) => {
 
     const handleSubmit = () => {
         if(props.type === 'add') {
-            axiosInstance.post('/task', newTask, {withCredentials: true}).then(() => setNewTask({}));
+            axiosInstance.post('/task', newTask, {withCredentials: true}).then(() => {
+                setNewTask({})
+                props.userReloader();
+            });
         } else {
-            axiosInstance.post('/task/update', newTask, {withCredentials: true});
+            axiosInstance.post('/task/update', newTask, {withCredentials: true}).then(() => {
+                props.userReloader();
+            })
         }
     }
 
@@ -40,7 +44,7 @@ const AddEditTask = (props) => {
             value={newTask.personAssigned}
             setValue={(value)=>setNewTask({...newTask, personAssigned: value})}
             onSelect={(item)=>setNewTask({...newTask, personAssigned: item.value})}
-            items={userContext.people.map(person => {return {id: person, value: person}})}
+            items={props.user.people.map(person => {return {id: person, value: person}})}
             label="Person Assigned"
             showLabel={false}
         />
@@ -50,14 +54,13 @@ const AddEditTask = (props) => {
             value={newTask.status}
             setValue={(value)=>setNewTask({...newTask, status: value})}
             onSelect={(item)=>setNewTask({...newTask, status: item.value})}
-            items={userContext.status.map(status => {return {id: status, value: status}})}
+            items={props.user.status.map(status => {return {id: status, value: status}})}
             label="Status"
             showLabel={false}
         />
 
         <div style={{position: 'relative', padding: '5px'}}>
             <center><input type="submit" style={{margin: 'auto'}}/></center>
-
         </div>
     </form>
 }
