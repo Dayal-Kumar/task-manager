@@ -43,7 +43,7 @@ export default function Task(props) {
     };
 
     const handleDeleteOutlineClick = () => {
-        axios.post(`${process.env.REACT_APP_API_URL}/task/delete`, task, {withCredentials: true}).then(()=>{
+        axiosInstance.post('/task/delete', task, {withCredentials: true}).then(()=>{
         })
         props.reloader();
     };
