@@ -12,7 +12,7 @@ const cookieSession = require("cookie-session");
 const bodyParser = require('body-parser');
 const path = require("path");
 
-app.use(express.static(path.resolve(__dirname, './client/task-manager/build')));
+app.use(express.static(path.resolve(__dirname, './client/build')));
 app.use(cors({
     origin: 'http://localhost:3000',
     method: 'GET,POST,PUT,DELETE',
@@ -33,6 +33,10 @@ app.use(passport.session());
 
 app.use('/auth', authRouter);
 app.use('/task', taskRouter);
+
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.get('/get-user', (req, res) => {
     res.send(req.user);
