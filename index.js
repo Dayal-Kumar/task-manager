@@ -10,8 +10,9 @@ const authRouter = require('./routes/auth');
 const taskRouter = require('./routes/task');
 const cookieSession = require("cookie-session");
 const bodyParser = require('body-parser');
+const path = require("path");
 
-
+app.use(express.static(path.resolve(__dirname, './client/task-manager/build')));
 app.use(cors({
     origin: 'http://localhost:3000',
     method: 'GET,POST,PUT,DELETE',
