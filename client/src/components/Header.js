@@ -7,7 +7,7 @@ import {myContext} from "../Context";
 const Header = () => {
     const userObj = useContext(myContext);
     const logout = () => {
-        axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`, {withCredentials: true}).then(res => {
+        axios.get('/auth/logout', {withCredentials: true}).then(res => {
             if(res.data === 'success') {
                 // setUserObj();
                 window.location.href = '/';
