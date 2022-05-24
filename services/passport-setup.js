@@ -16,7 +16,7 @@ passport.use(
     new GoogleStrategy({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'https://peaceful-beach-86981.herokuapp.com/api/auth/google/callback'
+        callbackURL: 'api/auth/google/callback'
     }, (accessToken, refreshToken, profile, done) => {
         console.log(profile);
         User.findOne({googleID: profile.id}, (err, user) => {

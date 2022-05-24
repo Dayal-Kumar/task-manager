@@ -16,11 +16,13 @@ const AddEditTask = (props) => {
     }, [props]);
     
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if(props.type === 'add') {
             axiosInstance.post('/task', newTask, {withCredentials: true}).then(() => {
                 setNewTask({})
                 props.userReloader();
+                props.taskReloader();
             });
         } else {
             axiosInstance.post('/task/update', newTask, {withCredentials: true}).then(() => {

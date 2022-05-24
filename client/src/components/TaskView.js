@@ -18,7 +18,6 @@ const TaskView = (props) => {
 
     const taskReloader = ()=> {
         axiosInstance.get('/task', {withCredentials: true}).then(res => {
-            console.log(res.data);
             setTasks(res.data);
         });
     };
@@ -34,6 +33,7 @@ const TaskView = (props) => {
             task={type.task}
             user={props.user}
             userReloader={()=> props.userReloader()}
+            taskReloader={()=> props.taskReloader()}
         />
         <div>
             <Grid container spacing={2} padding={5} >
