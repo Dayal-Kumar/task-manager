@@ -6,7 +6,7 @@ import {axiosInstance} from "../config";
 const Login = () => {
 
     const GoogleLogin = () => {
-        axiosInstance.post('/auth/google', '_self');
+        window.open('/auth/google', '_self');
     }
 
     return <>
